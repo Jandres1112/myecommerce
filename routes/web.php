@@ -38,3 +38,10 @@ Route::put('/seller/{id}', [SellerController::class, 'edit'])->name('seller.edit
 
 Route::get('/product', [ProductController::class, 'index'])->name('product');
 Route::post('/product', [ProductController::class, 'store'])->name('product.store');
+
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::resource('dashboard/post', PostController::class);
+Route::resource('dashboard/category', CategoryController::class);

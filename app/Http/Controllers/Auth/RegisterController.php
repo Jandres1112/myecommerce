@@ -9,9 +9,6 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
-use App\Models\Role;
-use App\Models\Seller;
-
 class RegisterController extends Controller
 {
     /*
@@ -32,15 +29,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    //protected $redirectTo = RouteServiceProvider::HOME;
-
-    protected function redirectTo()
-    {
-        return 'register';
-    }
-
-    const SELLER_ROL = 2;
-    const DEFAULT_PASSWORD = '123456789';
+    protected $redirectTo = RouteServiceProvider::HOME;
 
     /**
      * Create a new controller instance.
@@ -49,8 +38,7 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        //$this->middleware('guest');
-        $this->middleware('auth');
+        $this->middleware('guest');
     }
 
     /**
@@ -64,15 +52,8 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'seller_id' => ['required', 'integer'],
-        ]);
-
-        /*return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'role_id' => ['required', 'integer'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);*/
+        ]);
     }
 
     /**
@@ -83,34 +64,10 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        //dd(self::DEFAULT_PASSWORD);
-
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'role_id' => self::SELLER_ROL,
-            'seller_id' => $data['seller_id'],
-            'password' => Hash::make(self::DEFAULT_PASSWORD),
-        ]);
-
-        //return redirect(route('auth.success'));
-
-        /*return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'role_id' => $data['role_id'],
             'password' => Hash::make($data['password']),
-        ]);*/
+        ]);
     }
-
-    public function showRegistrationForm()
-    {
-        $users = User::with(['Role', 'Seller'])->get();
-        //dd($users);
-        $sellers = Seller::all();
-        $roles = Role::all();
-        // vista return
-        return view('auth/register', ['users' => $users, 'sellers' => $sellers, 'roles' => $roles]);
-    }
-
 }
