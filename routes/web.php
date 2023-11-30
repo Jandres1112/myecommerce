@@ -1,3 +1,5 @@
+
+
 <?php
 
 use Illuminate\Support\Facades\Route;
@@ -5,6 +7,9 @@ use App\Http\Controllers\SellerController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\partialsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +31,7 @@ Auth::routes(['register' => false]);
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
+
 Route::get('/user', [UserController::class, 'index'])->name('user');
 Route::post('/user', [UserController::class, 'store'])->name('user.store');
 Route::get('/user/edit/{id}', [UserController::class, 'actionEdit'])->name('user.action.edit');
@@ -44,4 +50,11 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::resource('dashboard/post', PostController::class);
-Route::resource('dashboard/category', CategoryController::class);
+Route::resource('dashboard/Category', CategoryController::class);
+Route::resource('dashboard/partials', partialsController::class);
+Route::get('/contatsblade', function(){return view('contatsblade');});
+Route::get('/master', function(){return view('master');});
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

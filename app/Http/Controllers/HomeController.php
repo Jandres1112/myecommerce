@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Models\Product;
-
 class HomeController extends Controller
 {
-    const ADMIN_ROLE = 1;
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
     public function __construct()
     {
         $this->middleware('auth');
@@ -19,18 +21,8 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index(Request $request)
+    public function index()
     {
-        $products;
-        
-        if ($request->user()->role_id == self::ADMIN_ROLE) {
-            $products = Product::with(['Category', 'Brand', 'Seller'])->get();
-        } else {
-            $products = Product::with(['Category', 'Brand', 'Seller'])
-                                    ->where('seller_id', $request->user()->seller_id)
-                                    ->get();
-        }
-
-        return view('home', ['products' => $products]);
+        return view('home');
     }
 }
