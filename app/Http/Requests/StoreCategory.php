@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Http\Requests\StoreCategory;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreCategory extends FormRequest
@@ -13,7 +14,7 @@ class StoreCategory extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -25,7 +26,8 @@ class StoreCategory extends FormRequest
     {
         return [
             'name'=>'required|min:3|max:200',
-            'description'=>'required|min:250'
+            'description'=>'required|min:2',
+            'posted'=>'required'
         ];
     }
 }

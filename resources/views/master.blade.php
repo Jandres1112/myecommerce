@@ -16,6 +16,13 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Hola lindo</h1>
+    <div class="container section">
+        @if (session('status'))
+        <div class="alert alert-primary">
+            {{ session('status') }}
+        </div>
+        @endif
+        @yield('contenido')
+    </div>
 </body>
 </html>

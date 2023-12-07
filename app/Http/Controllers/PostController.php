@@ -14,7 +14,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        
     }
 
     /**
@@ -35,8 +35,8 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        post::create($request->validated());
-        return back()->with('status', 'Publicación successful');
+        Post::create($request->validated());
+        return back()->with('status','publicación successful');
     }
 
     /**
